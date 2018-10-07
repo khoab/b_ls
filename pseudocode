@@ -1,0 +1,74 @@
+This is a the most basic code for b_ls:
+
+/*
+
+#include <dirent.h> 
+#include <stdio.h> 
+
+int main(void) {
+  DIR *d;
+  struct dirent *dir;
+  d = opendir(".");
+  if (d) {
+    while ((dir = readdir(d)) != NULL) {
+      printf("%s\n", dir->d_name);
+    }
+    closedir(d);
+  }
+  return(0);
+}
+
+*/
+
+/* What will it done when I run it?
+
+1> Print out everything i have in dir(".") by using opendir and readdir(d) while still != NULL.
+2> It printed out without sorting.
+3> Printed out all fill without any option.
+
+=> It printed almost the same with ls -1a but without sorting.
+
+*/
+
+/* What do they want from me when they asked me to rewrite this code?
+
+1> If the is no option: Print out exactly the same with ls -1.
+2> For mandatory: They allow user put in those option: -l, -a, -r, -t.
+3> Don't need to deal with ACL and extended attributes yet.
+4> Have a Makefile to first compile a libary then compile the project.
+5> No Seg fault, bus error, double free.
+6> No memory leaks.
+7> Only able to use While loop, if else, and those function:
+    _ opendir, readdir, closedir: Use to open the dir and loop thru dir to return everything inside that dir, then close it. Basically, you can use it for -R or -a option without any modify.
+    _ stat, lstat, readlink: function obtains information about the file pointed to by path. Read, write or execute permission of the named file is not required, but all directories listed in the path name
+    leading to the file must be searchable. lstat is the same with stat, but if file is symbolic link, lstat will return that link status, not file refference status like stat. Readlink also same with lstat
+    but use when printout is symbolic link.
+    _ getpwuid, getgrgid: 
+    _ listxattr, getxattr: No need to use, cause i'm not gonna do the bonus.
+    _ time, ctime:
+    _ perror, strerror
+    _ write, malloc, free, exit, printf.
+
+*/
+
+/* From what they gave me and what they asked me to do, what I need to do?
+
+****************** That's the number of hard links to the file or directory. For files, this will usually be 1, unless you've created additional hard links to it with ln.
+For directories, it's 2 + the number of subdirectories. 
+This is because a directory can be referred to either by its name in the parent directory, . in itself, or .. in each subdirectory ******************************** (*)
+
+1> Check to see how many argu have they inputed. Is that a valid input.
+    _ If user input only 1 argu, mean they just execute the program but didn't ask for anything, printout basic ls -1: (1) exclude the hidden file.
+    _ If user input is 2 argu, check if the 2nd argu is in the valid shape: is av[1][0] == '-' and if av[1][n] == "lart", if no, return error msg, yes:
+        + -l: Return by straigh collumn, showing file permission, number of hard link or directory with subdirectory (*), user id, time of last_modify seperate by yyyy_mm size_of_fle mm dd hh:mm
+        Then file name.
+        + -a: Return all file (include .file (hidden file))
+        + -t: Sort file by time of last_modify.
+        + -r: Reverserd all sorting order.
+        + -{l,a,t,r}: The combination of all those.
+    _ If user input is >= 3 argu, check from argu 3 till == num_of_argu first, to see if all dirname are valid. If any of them not valid, return the ls errors msg FIRST, then return the value
+    inside each dirname follow by the order of user input. (Check argu 2 and apply them to all dirname that called.)
+1> Getting dirname, filename and sort it in:
+    _ Alphabet, acssending order (By list of Ascii, using strcmp). (1)
+    _ By time, accsending order (using time, ctime).
+    _ Revered the result I just sorted (Probaly or reserved the result, or reversed the order of sorting style).
