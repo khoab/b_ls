@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_chhid_strdup.c                                  :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/02 19:38:01 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/09 16:20:45 by kbui             ###   ########.fr       */
+/*   Created: 2018/09/13 19:06:31 by kbui              #+#    #+#             */
+/*   Updated: 2018/09/29 13:35:29 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "filestat.h"
 
-char		*ls_chhid_strdup(char *str, t_opt_check opt_check)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	char *dup;
+	size_t	i;
 
-	if (opt_check.is_a != 1)
-	{
-		if (*str == '.')
-		{
-			dup = "\0";
-			return (dup);
-		}
-	}
-	printf("work\n");
-	dup = (char *)malloc(strlen(str) + 1);
-	while (*str)
-		*(dup++) = *(str++);
-	*dup = '\0';
-	return (dup);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
 }

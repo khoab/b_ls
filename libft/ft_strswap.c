@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_chhid_strdup.c                                  :+:      :+:    :+:   */
+/*   ft_strswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/02 19:38:01 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/09 16:20:45 by kbui             ###   ########.fr       */
+/*   Created: 2018/10/09 19:49:23 by kbui              #+#    #+#             */
+/*   Updated: 2018/10/09 19:50:06 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "filestat.h"
-
-char		*ls_chhid_strdup(char *str, t_opt_check opt_check)
+void	ft_strswap(char **s1, char **s2)
 {
-	char *dup;
+	char	*temp;
 
-	if (opt_check.is_a != 1)
-	{
-		if (*str == '.')
-		{
-			dup = "\0";
-			return (dup);
-		}
-	}
-	printf("work\n");
-	dup = (char *)malloc(strlen(str) + 1);
-	while (*str)
-		*(dup++) = *(str++);
-	*dup = '\0';
-	return (dup);
+	temp = *s1;
+	*s1 = *s2;
+	*s2 = temp;
 }

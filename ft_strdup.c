@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_chhid_strdup.c                                  :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/02 19:38:01 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/09 16:20:45 by kbui             ###   ########.fr       */
+/*   Created: 2018/09/13 13:00:34 by kbui              #+#    #+#             */
+/*   Updated: 2018/10/09 14:09:05 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
-#include "filestat.h"
 
-char		*ls_chhid_strdup(char *str, t_opt_check opt_check)
+char		*ft_strdup(const char *s1)
 {
-	char *dup;
+	char	*dup;
+	size_t	i;
+	size_t	len;
 
-	if (opt_check.is_a != 1)
-	{
-		if (*str == '.')
-		{
-			dup = "\0";
-			return (dup);
-		}
-	}
-	printf("work\n");
-	dup = (char *)malloc(strlen(str) + 1);
-	while (*str)
-		*(dup++) = *(str++);
-	*dup = '\0';
+	len = ft_strlen(s1);
+	dup = (char *)malloc(len + 1);
+	if (dup == NULL)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		dup[i] = s1[i];
+	dup[i] = '\0';
 	return (dup);
 }

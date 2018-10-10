@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_chhid_strdup.c                                  :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/02 19:38:01 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/09 16:20:45 by kbui             ###   ########.fr       */
+/*   Created: 2018/09/11 21:09:35 by kbui              #+#    #+#             */
+/*   Updated: 2018/09/29 13:45:52 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "filestat.h"
 
-char		*ls_chhid_strdup(char *str, t_opt_check opt_check)
+void		*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char *dup;
+	char	*cpy_dst;
+	char	*cpy_src;
 
-	if (opt_check.is_a != 1)
-	{
-		if (*str == '.')
-		{
-			dup = "\0";
-			return (dup);
-		}
-	}
-	printf("work\n");
-	dup = (char *)malloc(strlen(str) + 1);
-	while (*str)
-		*(dup++) = *(str++);
-	*dup = '\0';
-	return (dup);
+	cpy_dst = (char *)dst;
+	cpy_src = (char *)src;
+	while (n--)
+		*(cpy_dst++) = *(cpy_src);
+	return (dst);
 }

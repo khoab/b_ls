@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 23:46:20 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/08 13:06:04 by kbui             ###   ########.fr       */
+/*   Updated: 2018/10/09 18:21:49 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ls_print_reg(char **filenames, int num_files, t_opt_check opt_check)
 	if (opt_check.is_r == 1)
 	{
 		i = num_files;
-		while (i-- >= 0)
+		while (--i >= 0)
 			printf("%s\n",filenames[i]);
 	}
 	else
@@ -64,7 +64,6 @@ void	ls_print_l(char **filename, int num_files, t_opt_check opt_check)
 		while (date_counter <= 15)
 			printf("%c", ctime(&file.st_mtime)[date_counter++]);
 		printf(" %s\n", filename[i]);
-		ft_memdel(file);
 		i++;
 	}
 }

@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filestat.h                                         :+:      :+:    :+:   */
+/*   ls_chhid_strdup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/29 15:10:05 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/02 19:55:11 by kbui             ###   ########.fr       */
+/*   Created: 2018/10/02 19:38:01 by kbui              #+#    #+#             */
+/*   Updated: 2018/10/09 18:36:03 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILESTAT_H
-# define FILESTAT_H
+#include <stdlib.h>
+#include "libft.h"
 
-# include <string.h>
-
-typedef	struct	s_filestat
+char		*ls_chhid_strdup(char *str, t_opt_check opt_check)
 {
-	char		*filename;
-	size_t		is_hidden;
-	char		*file_permision[10];
-	int			number_of_links;
-	char		*owner_name;
-	char		*gr_name;
-	int			file_size;
-	char		*last_modify;
-}				t_filestat;
+	char 	*dup;
+	int		i;
 
-typedef	struct	s_opt_check
-{
-	size_t		is_l;
-	size_t		is_a;
-	size_t		is_r;
-	size_t		is_time;
-	size_t		illegal_opt;
-}				t_opt_check;
-
-#endif
+	i = 0;
+	if (opt_check.is_a != 1)
+	{
+		if (str[i] == '.')
+		{
+			dup = "\0";
+			return (dup);
+		}
+	}
+	dup = (char *)malloc(ft_strlen(str) + 1);
+	while (str[++i])
+		dup[i] = str[i];
+	dup[i] = '\0';
+	return (dup);
+}
