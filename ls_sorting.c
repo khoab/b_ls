@@ -59,7 +59,7 @@ void	ls_shellsort(char **filenames, int numf, t_opt_check opt_check)
 			{
 				if (opt_check.is_time == 1)
 				{
-					if (ls_timecmp(filenames[k + 1], filenames[k]) == 1)
+					if (ls_timecmp(filenames[k], filenames[k + 1]) == 1)
 						break ;
 				}
 				else

@@ -37,17 +37,22 @@ char		**ls_valid_dirname(char **av, int ar, int start)
 			printf("ls: %s: No such file or directory\n", av[valid_check]);
 	}
 	valid_dirname = (char **)malloc(sizeof(valid_dirname) * size);
-	i = 0;
+	i = -1;
+	printf("%d === %d\n\n", start, ar);
 	while (start < ar)
 	{
 		d = opendir(av[start]);
 		if (d)
 		{
-			valid_dirname[i++] = ft_strdup(av[start]);
+			valid_dirname[++i] = ft_strdup(av[start]);
 			closedir(d);
 		}
+		printf("\n%s\n\n", valid_dirname[i]);
 		start++;
 	}
+	i = -1;
+	while (valid_dirname[+i])
+		printf("\n%s\n", valid_dirname[i]);
 	return (valid_dirname);
 }
 
