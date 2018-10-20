@@ -6,7 +6,7 @@
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 19:50:43 by kbui              #+#    #+#             */
-/*   Updated: 2018/10/07 12:46:46 by kbui             ###   ########.fr       */
+/*   Updated: 2018/10/19 21:05:48 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				ls_num_opt(int size, char **opt)
 {
 	int		len;
 
-	if (size == 2 && strcmp(opt[1], "-") == 0)
+	if (opt[1][0] != '-' || ft_strcmp(opt[1], "-") == 0 || size == 1)
 		return (0);
 	len = 1;
 	while (opt[len][0] == '-')
@@ -34,17 +34,19 @@ int				ls_num_opt(int size, char **opt)
 	return (len);
 }
 
-t_opt_check		ls_opt_check(char **av, size_t num_of_opt)
+t_opt_check		ls_opt_check(char **av, int num_of_opt)
 {
-	size_t			i;
-	size_t			j;
+	int				i;
+	int				j;
 	t_opt_check		check;
 
 	i = 0;
-	while (++i <= num_of_opt && (strcmp(av[i], "--") != 0))
+	ft_memset(&check, 0, sizeof(check));
+	while (++i <= num_of_opt && (ft_strcmp(av[i], "--") != 0))
 	{
 		j = 0;
 		while (av[i][++j] != '\0')
+		{
 			if (av[i][j] == 'l')
 				check.is_l = 1;
 			else if (av[i][j] == 'a')
@@ -59,33 +61,31 @@ t_opt_check		ls_opt_check(char **av, size_t num_of_opt)
 				check.illegal_opt = 1;
 				return (check);
 			}
+		}
 	}
 	return (check);
 }
 
-
-int				b_ls(int ar, char **av)
+int				main(int ar, char **av)
 {
 	t_opt_check		opt_check;
 	int				start;
-	char			**filenames;
-	int				num_of_file;
-
-	start = ls_num_opt(ar, av) + 1;
-	opt_check = ls_opt_check(av, start - 1);
-	if (opt_check.illegal_opt == 1)
-	{
-		printf("usage: ls [-lart] [file ...]\n");
-		return (0);
-	}
-	ls_dirname(ar, start, av, opt_check);
-}
-
-int				main(int ar, char **av)
-{
+	
 	if (ar == 1)
-		return (0);
+	{
+		ft_memset(&opt_check, 0, sizeof(opt_check));
+		ls_fn_casenodir(opt_check);
+	}
 	else
-		b_ls(ar, av);
+	{
+		start = ls_num_opt(ar, av) + 1;
+		opt_check = ls_opt_check(av, start - 1);
+		if (opt_check.illegal_opt == 1)
+		{
+			printf("usage: ls [-lart] [file ...]\n");
+			return (0);
+		}
+		ls_dirname(ar, start, av, opt_check);
+	}
 	return (0);
 }

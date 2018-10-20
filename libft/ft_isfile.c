@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_isfile.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbui <kbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/13 14:50:43 by kbui              #+#    #+#             */
-/*   Updated: 2018/09/13 15:07:23 by kbui             ###   ########.fr       */
+/*   Created: 2018/10/17 19:51:17 by kbui              #+#    #+#             */
+/*   Updated: 2018/10/18 10:11:12 by kbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
-char		*ft_strcpy(char *dst, const char *src)
+int		ft_isfile(char *filename)
 {
-	size_t	i;
+	struct stat		buffer;
+	int				ret;
 
-	i = -1;
-	while (src[++i])
-		dst[i] = src[i];
-	dst[i] = '\0';
-	return (dst);
+	ret = stat(filename, &buffer);
+	if (ret == 0 && !S_ISDIR(buffer.st_mode))
+		return (1);
+	return (0);
 }
